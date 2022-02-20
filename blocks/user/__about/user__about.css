@@ -1,0 +1,21 @@
+.user__about {
+  font-size: 18px;
+  line-height: 1;
+
+  /* включаем многоточие в конце блока, если текст не уместился */
+  text-overflow: ellipsis;
+  /* отключаем перенос текста, который не поместился в контейнер, на новую строку */
+  white-space: nowrap;
+  /* скрываем текст, который выходит за пределы контейнера */
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 620px) {
+  .user__about {
+    font-size: 14px;
+    line-height: 1;
+  }
+}

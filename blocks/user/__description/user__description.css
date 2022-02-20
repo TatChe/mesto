@@ -1,0 +1,10 @@
+.user__description {
+  /* 120px = ширина аватара, 30px = отступ между аватаром и текстом */
+  max-width: calc(100% - 120px - 30px);
+}
+
+@media screen and (max-width: 620px) {
+  .user__description {
+    max-width: 100%;
+  }
+}

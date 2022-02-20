@@ -1,0 +1,23 @@
+.user__name {
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 500;
+
+  /* включаем многоточие в конце блока, если текст не уместился */
+  text-overflow: ellipsis;
+  /* отключаем перенос текста, который не поместился в контейнер, на новую строку */
+  white-space: nowrap;
+  /* скрываем текст, который выходит за пределы контейнера */
+  overflow: hidden;
+
+  margin: 0;
+  padding: 0;
+  margin-right: 18px;
+}
+
+@media screen and (max-width: 620px) {
+  .user__name {
+    font-size: 27px;
+    line-height: 1;
+  }
+}

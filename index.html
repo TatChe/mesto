@@ -8,11 +8,76 @@
 </head>
 
 <body class="page">
-  <header></header>
+  <div class="page__container">
+    <header class="header page__header">
+      <img src="images/logo.svg" alt="логотип" class="header__logo">
+      <hr class="header__hr">
+    </header>
 
-  <main></main>
+    <section class="profile page__profile">
+      <div class="user">
+        <img class="user__avatar" alt="аватар пользователя" src="images/avatar.jpg">
+        <div class="user__description">
+          <div class="user__profile">
+            <p class="user__name">Жак-Ив Кусто</p>
+            <button type="button" class="user__edit-button link"></button>
+          </div>
+          <p class="user__about">Исследователь океана</p>
+        </div>
+      </div>
+      <button type="button" class="add-button link"></button>
+    </section>
 
-  <footer></footer>
+    <section class="page__elements" area-label="посещенные места">
+      <ul class="elements">
+        <li class="element">
+          <img alt="карачаевск" src="images/element-karachaevsk.png">
+          <div class="element__title">
+            <p class="element__name">Карачаевск</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img alt="эльбрус" src="images/element-elbrus.png">
+          <div class="element__title">
+            <p class="element__name">Гора Эльбрус</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img alt="домбай" src="images/element-dombai.png">
+          <div class="element__title">
+            <p class="element__name">Домбай</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img alt="эльбрус" src="images/element-elbrus.png">
+          <div class="element__title">
+            <p class="element__name">Гора Эльбрус</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img alt="домбай" src="images/element-dombai.png">
+          <div class="element__title">
+            <p class="element__name">Домбай</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img alt="карачаевск" src="images/element-karachaevsk.png">
+          <div class="element__title">
+            <p class="element__name">Карачаевск</p>
+            <button type="button" class="element__like"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
 
+    <footer class="footer">&copy; 2020 Mesto Russia</footer>
+  </div>
+
+  <script src="scripts/script.js"></script>
 </body>
 </html>
