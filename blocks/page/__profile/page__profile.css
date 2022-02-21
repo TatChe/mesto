@@ -2,6 +2,14 @@
   margin-bottom: 50px;
 }
 
+/* 880px = максимальная ширина, плюс отступы по 10px */
+/* начиная с такой ширины и меньше появляются отступы по 19px */
+@media screen and (max-width: calc(880px + 2*10px)) {
+  .page__profile {
+    padding: 0 19px;
+  }
+}
+
 @media screen and (max-width: 620px) {
   .page__profile {
     margin-bottom: 36px;

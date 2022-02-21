@@ -9,7 +9,6 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/page/__header/page__header.css);
 @import url(../blocks/header/__logo/header__logo.css);
-@import url(../blocks/header/__hr/header__hr.css);
 
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/page/__profile/page__profile.css);
@@ -30,3 +29,4 @@
 @import url(../blocks/element/__like/element__like.css);
 
 @import url(../blocks/footer/footer.css);
+@import url(../blocks/page/__footer/page__footer.css);
