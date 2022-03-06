@@ -1,6 +1,6 @@
 .popup__container {
   /* чтобы выровнять крестик */
-  position: relative; 
+  position: relative;
   width: 430px;
   box-sizing: border-box;
   background-color: white;
