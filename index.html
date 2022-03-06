@@ -18,13 +18,13 @@
         <img class="user__avatar" alt="аватар пользователя" src="images/avatar.jpg">
         <div class="user__description">
           <div class="user__profile">
-            <p class="user__name">Жак-Ив Кусто</p>
-            <button type="button" class="user__edit-button link"></button>
+            <h1 class="user__name">Жак-Ив Кусто</h1>
+            <button type="button" class="user__edit-button link" area-label="редактировать профиль"></button>
           </div>
           <p class="user__about">Исследователь океана</p>
         </div>
       </div>
-      <button type="button" class="add-button link"></button>
+      <button type="button" class="add-button link" area-label="добавить место"></button>
     </section>
 
     <section class="page__elements" area-label="посещенные места">
@@ -33,48 +33,61 @@
           <img alt="карачаевск" src="images/element-karachaevsk.png">
           <div class="element__title">
             <p class="element__name">Карачаевск</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
         <li class="element">
           <img alt="эльбрус" src="images/element-elbrus.png">
           <div class="element__title">
             <p class="element__name">Гора Эльбрус</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
         <li class="element">
           <img alt="домбай" src="images/element-dombai.png">
           <div class="element__title">
             <p class="element__name">Домбай</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
         <li class="element">
           <img alt="эльбрус" src="images/element-elbrus.png">
           <div class="element__title">
             <p class="element__name">Гора Эльбрус</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
         <li class="element">
           <img alt="домбай" src="images/element-dombai.png">
           <div class="element__title">
             <p class="element__name">Домбай</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
         <li class="element">
           <img alt="карачаевск" src="images/element-karachaevsk.png">
           <div class="element__title">
             <p class="element__name">Карачаевск</p>
-            <button type="button" class="element__like"></button>
+            <button type="button" class="element__like" area-label="нравится не нравится"></button>
           </div>
         </li>
       </ul>
     </section>
 
     <footer class="footer page__footer">&copy; 2020 Mesto Russia</footer>
+  </div>
+
+  <!-- поп-ап для редактирования профиля -->
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name="profile-edit">
+        <input class="popup__input popup_data_name" type="text" name="name" placeholder="Ваше имя">
+        <input class="popup__input popup_data_about" type="text" name="about" placeholder="Чем вы занимаетесь">
+        <button class="popup__btn-save link" type="submit">Сохранить</button>
+      </form>
+      <button type="button" class="popup__btn-close link" area-label="закрыть попап"></button>
+    </div>
   </div>
 
   <script src="scripts/script.js"></script>
