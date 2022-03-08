@@ -1,6 +1,6 @@
 .user__about {
   font-size: 18px;
-  line-height: 1;
+  line-height: 22px;
 
   /* включаем многоточие в конце блока, если текст не уместился */
   text-overflow: ellipsis;
@@ -16,6 +16,7 @@
 @media screen and (max-width: 620px) {
   .user__about {
     font-size: 14px;
-    line-height: 1;
+    line-height: 17px;
+    text-align: center;
   }
 }

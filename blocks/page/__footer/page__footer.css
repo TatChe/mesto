@@ -1,5 +1,5 @@
-.footer {
-  margin-bottom: 60px;
+.page__footer {
+  margin-bottom: 56px;
 }
 
 /* 880px = максимальная ширина, плюс отступы по 10px */
@@ -7,5 +7,6 @@
 @media screen and (max-width: calc(880px + 2*10px)) {
   .page__footer {
     padding: 0 19px;
+    margin-bottom: 32px;
   }
 }

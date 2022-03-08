@@ -1,9 +1,9 @@
-.link {
+.button_state_hover {
   opacity: 1;
   transition: opacity .3s linear;
 }
 
-.link:hover {
-  opacity: .6;
+.button_state_hover:hover {
+  opacity: .5;
   cursor: pointer;
 }

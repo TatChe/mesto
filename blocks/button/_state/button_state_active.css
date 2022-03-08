@@ -1,0 +1,14 @@
+.button_state_active {
+  opacity: 1;
+  transition: opacity .3s linear;
+}
+
+.button_state_active:hover {
+  opacity: .5;
+  cursor: pointer;
+}
+
+.button_state_active:active {
+  background-image: url(../../../images/like-button-icon-active.svg);
+  opacity: 1;
+}

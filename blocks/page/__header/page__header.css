@@ -1,13 +1,14 @@
 .page__header {
   margin-top: 45px;
   margin-bottom: 40px;
-  border-bottom: 1px solid #545454;
+  border-bottom: 1px solid rgba(84,84,84,.7);
 }
 
 /* 880px = максимальная ширина, плюс отступы по 10px */
 /* начиная с такой ширины и меньше появляется внутренний отступ слева */
 @media screen and (max-width: calc(880px + 2*10px)) {
   .page__header {
+    margin-top: 28px;
     padding-left: 27px;
   }
 }

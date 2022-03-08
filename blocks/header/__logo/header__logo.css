@@ -4,3 +4,11 @@
   object-fit: cover;
   margin-bottom: 40px;
 }
+
+@media screen and (max-width: 620px) {
+  .header__logo {
+    width: 104px;
+    height: 24px;
+    margin-bottom: 32px;
+  }
+}
