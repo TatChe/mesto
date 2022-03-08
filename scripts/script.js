@@ -19,24 +19,15 @@ let inputUserAbout = popup.querySelector(".popup__input_data_about");
 
 // функция открытия попапа
 function openPopup() {
-  // проверяем на наличие у попапа класса, в котором включается отображение попапа
-  if (popup.classList.contains("popup_opened")) {
-    return;
-  } else {
-    popup.classList.add("popup_opened");
-    // заполняем поля ввода значениями имени и профессии пользователя
-    inputUserName.value = userName.textContent;
-    inputUserAbout.value = userAbout.textContent;
-  }
+  popup.classList.add("popup_opened");
+  // заполняем поля ввода значениями имени и профессии пользователя
+  inputUserName.value = userName.textContent;
+  inputUserAbout.value = userAbout.textContent;
 }
 
 // функция закрытия попапа
 function closePopup() {
-  if (popup.classList.contains("popup_opened")) {
-    popup.classList.remove("popup_opened");
-  } else {
-    return;
-  }
+  popup.classList.remove("popup_opened");
 }
 
 // функция сохранения значений

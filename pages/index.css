@@ -10,8 +10,6 @@
 @import url(../blocks/button/_action/button_action_edit.css);
 @import url(../blocks/button/_action/button_action_like.css);
 @import url(../blocks/button/_action/button_action_save.css);
-@import url(../blocks/button/_state/button_state_active.css);
-@import url(../blocks/button/_state/button_state_hover.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/page/__header/page__header.css);

@@ -9,6 +9,10 @@
   line-height: 22px;
 }
 
+.button_action_save:hover {
+  opacity: .8;
+}
+
 @media screen and (max-width: 620px) {
   .button_action_save {
     height: 46px;

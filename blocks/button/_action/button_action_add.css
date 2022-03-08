@@ -8,8 +8,12 @@
   border-radius: 2px;
 }
 
+.button_action_add:hover {
+  opacity: .6;
+}
+
 @media screen and (max-width: 620px) {
-  .add-button_action_add {
+  .button_action_add {
     width: 100%;
     background-size: 16px;
   }
