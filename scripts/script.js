@@ -44,8 +44,8 @@ const addCardPopup = document.querySelector(".popup_action_card-add");
 const viewCardPopup = document.querySelector(".popup_action_card-view");
 
 // элементы в попапе просмотра картинки
-viewCardPopupImg = viewCardPopup.querySelector(".popup__image");
-viewCardPopupName = viewCardPopup.querySelector(".popup__place-name");
+const viewCardPopupImg = viewCardPopup.querySelector(".popup__image");
+const viewCardPopupName = viewCardPopup.querySelector(".popup__place-name");
 
 // формы в попапах
 const editProfileForm = editProfilePopup.querySelector(".popup__form");
@@ -159,7 +159,7 @@ const createCard = (card) => {
   const cardItem = cardTemplate.querySelector(".element").cloneNode(true);
 
   // сохраняем картинку
-  cardItemImg = cardItem.querySelector(".element__img");
+  const cardItemImg = cardItem.querySelector(".element__img");
 
   // // наполняем содержимым
   cardItem.querySelector(".element__name").textContent = card.name;
@@ -185,4 +185,4 @@ const renderCard = (card) => {
 };
 
 // создание и рендер изначальных карточек
-initialCards.forEach(card => { renderCard(card); });
+initialCards.forEach(renderCard);
