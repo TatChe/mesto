@@ -4,4 +4,5 @@
   border-radius: 10px;
   overflow: hidden; /* для загруглений у изображений */
   line-height: 0;
+  position: relative; /* для выравнивания кнопки удаления */
 }

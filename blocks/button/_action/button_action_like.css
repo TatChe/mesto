@@ -10,8 +10,3 @@
 .button_action_like:hover {
   opacity: .5;
 }
-
-.button_action_like:active {
-  opacity: 1;
-  background-image: url(../../../images/like-button-icon-active.svg);
-}

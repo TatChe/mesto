@@ -30,57 +30,17 @@
 
     <section class="page__elements">
       <ul class="elements">
-        <li class="element">
-          <img alt="карачаевск" src="images/element-karachaevsk.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Карачаевск</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img alt="эльбрус" src="images/element-elbrus.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img alt="домбай" src="images/element-dombai.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Домбай</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img alt="эльбрус" src="images/element-elbrus.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Гора Эльбрус</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img alt="домбай" src="images/element-dombai.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Домбай</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img alt="карачаевск" src="images/element-karachaevsk.jpeg">
-          <div class="element__title">
-            <h2 class="element__name">Карачаевск</h2>
-            <button type="button" class="button button_action_like"></button>
-          </div>
-        </li>
+        
       </ul>
     </section>
 
     <footer class="footer page__footer">&copy; 2020 Mesto Russia</footer>
   </div>
 
+
   <!-- поп-ап для редактирования профиля -->
-  <div class="popup">
-    <div class="popup__container">
+  <div class="popup popup_action_profile-edit">
+    <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="profile-edit">
         <input class="popup__input popup__input_data_name" type="text" name="name" placeholder="Ваше имя">
@@ -90,6 +50,43 @@
       <button type="button" class="button button_action_close"></button>
     </div>
   </div>
+
+  <!-- поп-ап для добавления карточки -->
+  <div class="popup popup_action_card-add">
+    <div class="popup__container popup__container_type_form">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="card-add">
+        <input class="popup__input popup__input_data_img-title" type="text" name="img-title" placeholder="Название">
+        <input class="popup__input popup__input_data_img-src" type="text" name="img-src" placeholder="Ссылка на картинку">
+        <button class="button button_action_save" type="submit">Сохранить</button>
+      </form>
+      <button type="button" class="button button_action_close"></button>
+    </div>
+  </div>
+
+  <!-- поп-ап для просмотра картинки -->
+  <div class="popup popup_action_card-view">
+    <div class="popup__container">
+      <figure class="popup__figure">
+        <img class="popup__image" alt="изображение места">
+        <figcaption class="popup__place-name"></figcaption>
+      </figure>
+      <button type="button" class="button button_action_close"></button>
+    </div>
+  </div>
+
+
+  <!-- шаблон верстки для карточки -->
+  <template class="card-template">
+    <li class="element">
+      <img class="element__img" alt="изображение места">
+      <button type="button" class="button button_action_delete"></button>
+      <div class="element__title">
+        <h2 class="element__name"></h2>
+        <button type="button" class="button button_action_like"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="scripts/script.js"></script>
 </body>
