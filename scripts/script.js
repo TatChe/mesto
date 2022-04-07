@@ -31,7 +31,7 @@ const inputCardImg = addCardForm.querySelector(".popup__input_data_img-src");
 
 // слушатели кликов по кнопкам для открытия попапов
 editProfileBtn.addEventListener ("click", () => viewUserData(editProfilePopup));
-addCardBtn.addEventListener ("click", () => openPopup(addCardPopup));
+addCardBtn.addEventListener ("click", () => clearForm(addCardPopup));
 
 // слушатели для всех попапов на клик по крестику или по оверлею
 popups.forEach((popup) => {
@@ -46,7 +46,6 @@ popups.forEach((popup) => {
 editProfileForm.addEventListener("submit", saveProfileChanges);
 addCardForm.addEventListener("submit", addNewCard);
 
-
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -58,10 +57,6 @@ function openPopup(popup) {
 // закрытие попапа
 function closePopup(popup) {
   document.removeEventListener("keydown", handleEscUp);
-
-  const currentForm = popup.querySelector(".popup__form");
-  currentForm.reset();
-
   popup.classList.remove("popup_opened");
 }
 
@@ -77,6 +72,13 @@ const handleEscUp = (evt) => {
 function viewUserData(popup) {
   inputUserName.value = userName.textContent;
   inputUserAbout.value = userAbout.textContent;
+  openPopup(popup);
+}
+
+// очистка формы добавления карточки
+function clearForm(popup) {
+  const currentForm = popup.querySelector(".popup__form");
+  currentForm.reset();
   openPopup(popup);
 }
 

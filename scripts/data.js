@@ -2,26 +2,26 @@
 const initialCards = [
   {
     name: "Архыз",
-    link: "../images/element-arkhyz.jpg"
+    link: "/images/element-arkhyz.jpg"
   },
   {
     name: "Челябинская область",
-    link: "../images/element-chelyabinsk-oblast.jpg"
+    link: "/images/element-chelyabinsk-oblast.jpg"
   },
   {
     name: "Иваново",
-    link: "../images/element-ivanovo.jpg"
+    link: "/images/element-ivanovo.jpg"
   },
   {
     name: "Камчатка",
-    link: "../images/element-kamchatka.jpg"
+    link: "/images/element-kamchatka.jpg"
   },
   {
     name: "Холмогорский район",
-    link: "../images/element-kholmogorsky-rayon.jpg"
+    link: "/images/element-kholmogorsky-rayon.jpg"
   },
   {
     name: "Байкал",
-    link: "../images/element-baikal.jpg"
+    link: "/images/element-baikal.jpg"
   }
 ];
