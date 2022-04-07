@@ -58,6 +58,10 @@ function openPopup(popup) {
 // закрытие попапа
 function closePopup(popup) {
   document.removeEventListener("keydown", handleEscUp);
+
+  const currentForm = popup.querySelector(".popup__form");
+  currentForm.reset();
+
   popup.classList.remove("popup_opened");
 }
 
@@ -116,9 +120,6 @@ function addNewCard(event) {
     renderCard(cardData);
   }
   closePopup(addCardPopup);
-
-  // обнуляем форму
-  addCardForm.reset();
 }
 
 
