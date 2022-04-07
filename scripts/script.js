@@ -1,31 +1,3 @@
-// массив с изначальными карточками
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "../images/element-arkhyz.jpeg"
-  },
-  {
-    name: "Челябинская область",
-    link: "../images/element-chelyabinsk-oblast.jpeg"
-  },
-  {
-    name: "Иваново",
-    link: "../images/element-ivanovo.jpeg"
-  },
-  {
-    name: "Камчатка",
-    link: "../images/element-kamchatka.jpeg"
-  },
-  {
-    name: "Холмогорский район",
-    link: "../images/element-kholmogorsky-rayon.jpeg"
-  },
-  {
-    name: "Байкал",
-    link: "../images/element-baikal.jpeg"
-  }
-];
-
 // контейнер для добавления карточек
 const cardsContainer = document.querySelector(".elements");
 
@@ -34,8 +6,8 @@ const userName = document.querySelector(".user__name");
 const userAbout = document.querySelector(".user__about");
 
 // кнопки
-const editProfileBtn = document.querySelector(".button_action_edit");
-const addCardBtn = document.querySelector(".button_action_add");
+const editProfileBtn = document.querySelector(".user__button-edit");
+const addCardBtn = document.querySelector(".profile__button-add");
 
 // попапы
 const popups = document.querySelectorAll('.popup');
@@ -61,10 +33,10 @@ const inputCardImg = addCardForm.querySelector(".popup__input_data_img-src");
 editProfileBtn.addEventListener ("click", () => viewUserData(editProfilePopup));
 addCardBtn.addEventListener ("click", () => openPopup(addCardPopup));
 
-// слушатели для всех попапов на клик по крестику
+// слушатели для всех попапов на клик по крестику или по оверлею
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (event) => {
-    if (event.target.classList.contains("button_action_close")) {
+    if (event.target.classList.contains("popup__button-close") || event.target.classList.contains("popup")) {
       closePopup(popup);
     }
   })
@@ -78,11 +50,23 @@ addCardForm.addEventListener("submit", addNewCard);
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+
+  // слушатель нажатия на Esc
+  document.addEventListener("keydown", handleEscUp);
 }
 
 // закрытие попапа
 function closePopup(popup) {
+  document.removeEventListener("keydown", handleEscUp);
   popup.classList.remove("popup_opened");
+}
+
+// закрытие по Esc
+const handleEscUp = (evt) => {
+  if (evt.key === "Escape") {
+    const currentPopup = document.querySelector(".popup_opened");
+    closePopup(currentPopup);
+  }
 }
 
 // заполнение полей в попапе редактирования пользователя
@@ -140,7 +124,7 @@ function addNewCard(event) {
 
 // установка и снятие like
 const toggleLike = (event) => {
-  event.currentTarget.classList.toggle("button_like-active");
+  event.currentTarget.classList.toggle("element__button-like_active");
 };
 
 // удаление карточки
@@ -167,8 +151,8 @@ const createCard = (card) => {
   cardItemImg.src = card.link;
 
   // навешиваем обработчики событий
-  cardItem.querySelector(".button_action_like").addEventListener("click", toggleLike);
-  cardItem.querySelector(".button_action_delete").addEventListener("click", deleteCard);
+  cardItem.querySelector(".element__button-like").addEventListener("click", toggleLike);
+  cardItem.querySelector(".element__button-delete").addEventListener("click", deleteCard);
   cardItemImg.addEventListener("click", () => viewImage(cardItem));
 
   // возвращаем получившуюся карточку
