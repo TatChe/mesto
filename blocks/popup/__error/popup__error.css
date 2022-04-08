@@ -1,6 +1,12 @@
 .popup__error {
-  display: none;
+  display: block;
+  opacity: 0;
   color: #FF0000;
   font-size: 12px;
   line-height: 15px;
+
+  /* высота под три строки, т.к. при минимальном разрешении получается три строки */
+  /* при слишком коротком значении */
+  min-height: 45px;
+  margin-top: 5px;
 }

@@ -25,9 +25,6 @@ const enableValidation = ({formSelector, ...rest}) => {
 const setInputListeners = (formElement, {inputSelector, ...rest}) => {
   const inputsArray = Array.from(formElement.querySelectorAll(inputSelector));
 
-  // проверяем состояние кнопки при открытии формы
-  toggleButtonState(formElement, inputsArray, rest);
-
   inputsArray.forEach(inputElement => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(inputElement, rest);
@@ -66,16 +63,36 @@ const hasInvalidInput = (inputsArray) => {
   })
 }
 
-// управление состоянием кнопки
-const toggleButtonState = (formElement, inputsArray, {submitButtonSelector, inactiveButtonClass, ...rest}) => {
+// проверка состояния кнопки
+const toggleButtonState = (formElement, inputsArray, {submitButtonSelector, ...rest}) => {
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
   if (hasInvalidInput(inputsArray)) {
-    buttonElement.classList.add(inactiveButtonClass);
+    deactivateButton(buttonElement, rest);
   } else {
-    buttonElement.classList.remove(inactiveButtonClass);
+    activateButton(buttonElement, rest);
   }
 }
 
+// включение кнопки
+const activateButton = (buttonElement, {inactiveButtonClass, ...rest}) => {
+  buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.removeAttribute('disabled');
+}
+
+// выключение кнопки
+const deactivateButton = (buttonElement, {inactiveButtonClass, ...rest}) => {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.setAttribute('disabled', true);
+}
+
+// скрываем ошибки при повторном открытии формы
+const hideAllErrors = (currentForm, {inputSelector, ...rest}) => {
+  const inputsArray = Array.from(currentForm.querySelectorAll(inputSelector));
+  inputsArray.forEach(inputElement => {
+    const inputErrorPlace = document.getElementById(`${inputElement.name}-error`);
+    hideInputError(inputElement, inputErrorPlace, rest);
+  })
+}
 
 enableValidation(validationSettings);

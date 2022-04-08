@@ -1,5 +1,6 @@
 .page__elements {
   margin-bottom: 66px;
+  min-height: 20vh;
 }
 
 /* 880px = максимальная ширина, плюс отступы по 10px */

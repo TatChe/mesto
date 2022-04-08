@@ -30,8 +30,8 @@ const inputCardName = addCardForm.querySelector(".popup__input_data_img-title");
 const inputCardImg = addCardForm.querySelector(".popup__input_data_img-src");
 
 // слушатели кликов по кнопкам для открытия попапов
-editProfileBtn.addEventListener ("click", () => viewUserData(editProfilePopup));
-addCardBtn.addEventListener ("click", () => clearForm(addCardPopup));
+editProfileBtn.addEventListener ("click", () => openUserDataForm(editProfilePopup));
+addCardBtn.addEventListener ("click", () => openAddCardForm(addCardPopup));
 
 // слушатели для всех попапов на клик по крестику или по оверлею
 popups.forEach((popup) => {
@@ -49,7 +49,6 @@ addCardForm.addEventListener("submit", addNewCard);
 // открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-
   // слушатель нажатия на Esc
   document.addEventListener("keydown", handleEscUp);
 }
@@ -68,27 +67,32 @@ const handleEscUp = (evt) => {
   }
 }
 
-// заполнение полей в попапе редактирования пользователя
-function viewUserData(popup) {
+// подготовка формы редактирования пользователя
+function openUserDataForm(popup) {
+  // заполнение полей
   inputUserName.value = userName.textContent;
   inputUserAbout.value = userAbout.textContent;
+  
+  const currentSubmitButton = popup.querySelector(".popup__button-submit");
+  // устанавливаем состояние кнопки при каждом открытии формы
+  deactivateButton(currentSubmitButton, validationSettings);
   openPopup(popup);
 }
 
-// очистка формы добавления карточки
-function clearForm(popup) {
+// подготовка формы добавления карточки
+function openAddCardForm(popup) {
   const currentForm = popup.querySelector(".popup__form");
+  const currentSubmitButton = currentForm.querySelector(".popup__button-submit");
   currentForm.reset();
+  // устанавливаем состояние кнопки при каждом открытии формы
+  deactivateButton(currentSubmitButton, validationSettings);
+  // очищаем ошибки
+  hideAllErrors(currentForm, validationSettings);
   openPopup(popup);
 }
 
 // отображение картинки и подписи в попапе просмотра карточки
-function viewImage(card) {
-  // получаем имя и картинку из карточки
-  const cardImage = card.querySelector(".element__img").src;
-  const cardName = card.querySelector(".element__name").textContent;
-
-  // записываем имя, картинку и alt в попап
+function viewImage(cardName, cardImage) {
   viewCardPopupName.textContent = cardName;
   viewCardPopupImg.alt = cardName;
   viewCardPopupImg.src = cardImage;
@@ -156,7 +160,7 @@ const createCard = (card) => {
   // навешиваем обработчики событий
   cardItem.querySelector(".element__button-like").addEventListener("click", toggleLike);
   cardItem.querySelector(".element__button-delete").addEventListener("click", deleteCard);
-  cardItemImg.addEventListener("click", () => viewImage(cardItem));
+  cardItemImg.addEventListener("click", () => viewImage(card.name, card.link));
 
   // возвращаем получившуюся карточку
   return cardItem;
