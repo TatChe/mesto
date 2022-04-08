@@ -73,9 +73,12 @@ function openUserDataForm(popup) {
   inputUserName.value = userName.textContent;
   inputUserAbout.value = userAbout.textContent;
   
-  const currentSubmitButton = popup.querySelector(".popup__button-submit");
+  const currentForm = popup.querySelector(".popup__form");
+  const currentSubmitButton = currentForm.querySelector(".popup__button-submit");
   // устанавливаем состояние кнопки при каждом открытии формы
   deactivateButton(currentSubmitButton, validationSettings);
+  // очищаем ошибки
+  hideAllErrors(currentForm, validationSettings);
   openPopup(popup);
 }
 
