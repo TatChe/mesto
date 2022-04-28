@@ -62,7 +62,6 @@ export const viewCardPopupName = viewCardPopup.querySelector('.popup__place-name
 
 
 // формы в попапах
-export const forms = document.querySelectorAll('.popup__form');
 export const editProfileForm = editProfilePopup.querySelector('.popup__form');
 export const addCardForm = addCardPopup.querySelector('.popup__form');
 

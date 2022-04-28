@@ -1,22 +1,28 @@
-/*** импорты ***/
+import {
+  initialCards,
+  cardTemplate,
+  cardsContainer,
+  editProfileBtn,
+  addCardBtn,
+  popups,
+  editProfilePopup,
+  addCardPopup,
+  viewCardPopup,
+  viewCardPopupName,
+  viewCardPopupImg,
+  validationSettings,
+  editProfileForm,
+  addCardForm,
+  inputUserName,
+  inputUserAbout,
+  userName,
+  userAbout,
+  inputCardName,
+  inputCardImg
+} from './constants.js';
 
-// создание карточек
-import { initialCards, cardTemplate, cardsContainer } from './constants.js';
 import { Card } from './Card.js';
-
-// кнопки и попапы
-import { editProfileBtn, addCardBtn } from './constants.js';
-import { popups, editProfilePopup, addCardPopup, viewCardPopup } from './constants.js';
-import { viewCardPopupName, viewCardPopupImg } from './constants.js';
-
-// формы и поля в них
-import { forms, editProfileForm, addCardForm, validationSettings } from './constants.js';
-import { inputUserName, inputUserAbout, userName, userAbout, inputCardName, inputCardImg } from './constants.js';
-
-// валидация
 import { FormValidator } from './FormValidator.js';
-
-/*** end ***/
 
 
 // включение валидации для всех форм
