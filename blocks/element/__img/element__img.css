@@ -8,3 +8,7 @@
   color: #000;
   line-height: 1;
 }
+
+.element__img:hover {
+  cursor: pointer;
+}
