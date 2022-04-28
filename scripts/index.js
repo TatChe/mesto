@@ -31,22 +31,8 @@ validatorEditProfileForm.enableValidation();
 const validatorAddCardForm = new FormValidator(addCardForm, validationSettings);
 validatorAddCardForm.enableValidation();
 
-// слушатели кликов по кнопкам для открытия попапов
-editProfileBtn.addEventListener ('click', () => openUserDataForm(editProfilePopup));
-addCardBtn.addEventListener ('click', () => openAddCardForm(addCardPopup));
 
-// слушатели для всех попапов на клик по крестику или по оверлею
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('popup__button-close') || event.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  })
-})
-
-// слушатели submit-событий в формах
-editProfileForm.addEventListener('submit', saveProfileChanges);
-addCardForm.addEventListener('submit', addNewCard);
+/* *** функции *** */
 
 // открытие попапа
 function openPopup(popup) {
@@ -122,7 +108,6 @@ function viewCardImage(cardName, cardImage) {
   openPopup(viewCardPopup);
 }
 
-
 // создание карточки из класса, добавление в разметку
 function createCard(data, cardTemplate, viewCardImage) {
   const card = new Card(data, cardTemplate, viewCardImage);
@@ -134,13 +119,42 @@ function createCard(data, cardTemplate, viewCardImage) {
 function addNewCard(event) {
   event.preventDefault();
 
-  const cardData = {};
-  cardData.name = inputCardName.value;
-  cardData.link = inputCardImg.value;
+  createCard(
+    {
+      name: inputCardName.value,
+      link: inputCardImg.value
+    },
+    cardTemplate,
+    viewCardImage
+  );
 
-  createCard(cardData, cardTemplate, viewCardImage);
   closePopup(addCardPopup);
 }
+
+/* *** end *** */
+
+
+/* *** слушатели *** */
+
+// слушатели кликов по кнопкам для открытия попапов
+editProfileBtn.addEventListener ('click', () => openUserDataForm(editProfilePopup));
+addCardBtn.addEventListener ('click', () => openAddCardForm(addCardPopup));
+
+// слушатели для всех попапов на клик по крестику или по оверлею
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('popup__button-close') || event.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
+  })
+})
+
+// слушатели submit-событий в формах
+editProfileForm.addEventListener('submit', saveProfileChanges);
+addCardForm.addEventListener('submit', addNewCard);
+
+/* *** end *** */
+
 
 // создание стартовых карточек
 initialCards.forEach((item) => {
