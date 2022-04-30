@@ -21,8 +21,8 @@ import {
   inputCardImg
 } from './constants.js';
 
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 
 // включение валидации для всех форм
