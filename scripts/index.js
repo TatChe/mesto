@@ -23,6 +23,10 @@ import {
 
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
 
 
 // включение валидации для всех форм
@@ -36,7 +40,7 @@ validatorAddCardForm.enableValidation();
 
 // открытие попапа
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  // popup.classList.add('popup_opened');
   // слушатель нажатия на Esc
   document.addEventListener('keydown', handleEscUp);
 }
@@ -44,16 +48,16 @@ function openPopup(popup) {
 // закрытие попапа
 function closePopup(popup) {
   document.removeEventListener('keydown', handleEscUp);
-  popup.classList.remove('popup_opened');
+  // popup.classList.remove('popup_opened');
 }
 
 // закрытие по Esc
-const handleEscUp = (evt) => {
-  if (evt.key === 'Escape') {
-    const currentPopup = document.querySelector('.popup_opened');
-    closePopup(currentPopup);
-  }
-}
+// const handleEscUp = (evt) => {
+//   if (evt.key === 'Escape') {
+//     const currentPopup = document.querySelector('.popup_opened');
+//     closePopup(currentPopup);
+//   }
+// }
 
 // подготовка формы редактирования пользователя
 function openUserDataForm(popup) {
@@ -100,13 +104,13 @@ function saveProfileChanges(event) {
 }
 
 // отображение картинки и подписи в попапе просмотра карточки
-function viewCardImage(cardName, cardImage) {
-  viewCardPopupName.textContent = cardName;
-  viewCardPopupImg.alt = cardName;
-  viewCardPopupImg.src = cardImage;
+// function viewCardImage(cardName, cardImage) {
+//   viewCardPopupName.textContent = cardName;
+//   viewCardPopupImg.alt = cardName;
+//   viewCardPopupImg.src = cardImage;
 
-  openPopup(viewCardPopup);
-}
+//   openPopup(viewCardPopup);
+// }
 
 // создание карточки из класса, добавление в разметку
 function createCard(data, cardTemplate, viewCardImage) {
@@ -160,3 +164,5 @@ addCardForm.addEventListener('submit', addNewCard);
 initialCards.forEach((item) => {
   createCard(item, cardTemplate, viewCardImage);
 });
+
+// const cardsList = new Section ( {initialCards, }, '.elements')
