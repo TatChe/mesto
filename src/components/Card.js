@@ -1,11 +1,11 @@
 export default class Card {
-  constructor(data, cardTemplate, viewCardImage) {
+  constructor ( { data, handleCardClick }, cardTemplate) {
     this._name = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
 
     // функция обработки клика по картинке, описана в index.js
-    this._viewCardImage = viewCardImage;
+    this._handleCardClick = handleCardClick;
   }
 
   // возвращение разметки
@@ -34,7 +34,7 @@ export default class Card {
     /* т.к. в файл класса мы не должны ничего импортировать из других файлов,
     для обработки клика по картинке будем использовать мягкое связывание */
     this._img.addEventListener('click', () => {
-      this._viewCardImage(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
   }  
 
