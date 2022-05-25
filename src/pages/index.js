@@ -1,7 +1,7 @@
 import './index.css';
 
 import {
-  initialCards,
+  // initialCards,
   cardTemplate,
   editProfileBtn,
   addCardBtn,
@@ -10,6 +10,7 @@ import {
   inputUserAbout,
   userName,
   userAbout,
+  userAvatar,
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -18,81 +19,119 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 
 
-/*** константы ***/
+// API
+const api = new Api ({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
+  headers: {
+    authorization: '1d4d3067-933d-44bd-90ee-5ffcfa07139c',
+    'Content-Type': 'application/json'
+  }
+});
+
+
 
 // данные пользователя
-const userInfo = new UserInfo({userName, userAbout});
+api.getUserData()
+  .then((data) => {
+    userName.textContent = data.name;
+    userAbout.textContent = data.about;
+    userAvatar.src = data.avatar;
 
-// контейнер для карточек
-const cardsList = new Section( {items: initialCards, renderer: createCard}, '.elements');
+    const userInfo = new UserInfo({userName, userAbout});
 
-// попапы
-const userEditPopup = new PopupWithForm('.popup_action_profile-edit', saveProfileChanges);
-const viewCardPopup = new PopupWithImage('.popup_action_card-view');
-const addCardPopup = new PopupWithForm('.popup_action_card-add', addNewCard);
+    // попап
+    const userEditPopup = new PopupWithForm('.popup_action_profile-edit', saveProfileChanges);
 
-// валидаторы форм
-const validatorEditProfileForm = new FormValidator(userEditPopup.form, validationSettings);
-const validatorAddCardForm = new FormValidator(addCardPopup.form, validationSettings);
+    // валидатор формы
+    const validatorEditProfileForm = new FormValidator(userEditPopup.form, validationSettings);
+    validatorEditProfileForm.enableValidation();
 
+    // слушатель в попапе
+    userEditPopup.setEventListeners();
 
+    // слушатели кликов по кнопкам открытия попапов
+    editProfileBtn.addEventListener ('click', () => {
+      inputUserName.value = userInfo.getUserInfo().userName;
+      inputUserAbout.value = userInfo.getUserInfo().userAbout;
+      validatorEditProfileForm.deactivateButton(); // состояние кнопки при открытии формы
+      validatorEditProfileForm.hideAllErrors(); // очищаем ошибки
+      userEditPopup.open();
+    });
 
-/*** функции ***/
+    // обработчик сабмита формы с данными пользователя
+    function saveProfileChanges(inputsData) {
+      api.patchUserData(inputsData)
+        .then((data) => {
+          userInfo.setUserInfo(data);
+          userEditPopup.close();
+        })
+        .catch((err) => console.log(err));
+    }
 
-// создание карточки из класса, добавление в разметку
-function createCard(item) {
-  const card = new Card( {data: item, handleCardClick: viewCardImage}, cardTemplate);
-  const cardElement = card.generateCard();
-  cardsList.addItem(cardElement);
-}
-
-// добавление карточки из попапа
-function addNewCard(inputsData) {
-  createCard(inputsData);
-  addCardPopup.close();
-}
-
-// обработчик сабмита формы с данными пользователя
-function saveProfileChanges(inputsData) {
-  userInfo.setUserInfo(inputsData);
-  userEditPopup.close();
-}
-
-// обработка клика на карточку
-function viewCardImage(cardName, cardLink) {
-  viewCardPopup.open(cardName, cardLink);
-}
+}).catch((err) => console.log(err));
 
 
 
-/*** остальное ***/
 
-// рендер исходных карточек
-cardsList.renderAllItems();
+// карточки
+api.getAllCards()
+  .then((data) => {
 
-// включение валидации форм
-validatorEditProfileForm.enableValidation();
-validatorAddCardForm.enableValidation();
+    // контейнер для карточек
+    const cardsList = new Section(
+      {
+        items: data.map((item) => ({title: item.name, link: item.link})),
+        renderer: createCard
+      },
+      '.elements'
+    );
 
-// слушатели в попапах
-userEditPopup.setEventListeners();
-viewCardPopup.setEventListeners();
-addCardPopup.setEventListeners();
+    // рендер исходных карточек
+    cardsList.renderAllItems();
 
-// слушатели кликов по кнопкам открытия попапов
-editProfileBtn.addEventListener ('click', () => {
-  inputUserName.value = userInfo.getUserInfo().userName;
-  inputUserAbout.value = userInfo.getUserInfo().userAbout;
-  validatorEditProfileForm.deactivateButton(); // состояние кнопки при открытии формы
-  validatorEditProfileForm.hideAllErrors(); // очищаем ошибки
-  userEditPopup.open();
-});
+    // попапы
+    const viewCardPopup = new PopupWithImage('.popup_action_card-view');
+    const addCardPopup = new PopupWithForm('.popup_action_card-add', addNewCard);
 
-addCardBtn.addEventListener ('click', () => {
-  validatorAddCardForm.deactivateButton(); // состояние кнопки при открытии формы
-  validatorAddCardForm.hideAllErrors(); // очищаем ошибки
-  addCardPopup.open();
-});
+    // валидатор формы добавления карточки
+    const validatorAddCardForm = new FormValidator(addCardPopup.form, validationSettings);
+    validatorAddCardForm.enableValidation();
+
+    // слушатели в попапах
+    viewCardPopup.setEventListeners();
+    addCardPopup.setEventListeners();
+    
+    // создание карточки из класса, добавление в разметку
+    function createCard(item) {
+      const card = new Card( {data: item, handleCardClick: viewCardImage}, cardTemplate);
+      const cardElement = card.generateCard();
+      cardsList.addItem(cardElement);
+    }
+
+    // слушатель клика на кноку добавления карточки
+    addCardBtn.addEventListener ('click', () => {
+      validatorAddCardForm.deactivateButton(); // состояние кнопки при открытии формы
+      validatorAddCardForm.hideAllErrors(); // очищаем ошибки
+      addCardPopup.open();
+    });
+
+    // добавление карточки из попапа
+    function addNewCard(inputsData) {
+      api.postCard(inputsData)
+        .then((data) => {
+          createCard({title: data.name, link: data.link});
+          addCardPopup.close();
+        })
+        .catch((err) => console.log(err));
+    }
+
+    // обработка клика на карточку
+    function viewCardImage(cardName, cardLink) {
+      viewCardPopup.open(cardName, cardLink);
+    }
+
+}).catch((err) => console.log(err));

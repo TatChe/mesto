@@ -6,14 +6,14 @@ const kholmogorskyImage = new URL('../images/element-kholmogorsky-rayon.jpg', im
 const baikalImage = new URL('../images/element-baikal.jpg', import.meta.url);
 
 // массив с изначальными карточками
-export const initialCards = [
-  { name: 'Архыз', link: arkhyzImage },
-  { name: 'Челябинская область', link: chelyabinskImage },
-  { name: 'Иваново', link: ivanovoImage },
-  { name: 'Камчатка', link: kamchatkaImage },
-  { name: 'Холмогорский район', link: kholmogorskyImage },
-  { name: 'Байкал', link: baikalImage }
-];
+// export const initialCards = [
+//   { title: 'Архыз', link: arkhyzImage },
+//   { title: 'Челябинская область', link: chelyabinskImage },
+//   { title: 'Иваново', link: ivanovoImage },
+//   { title: 'Камчатка', link: kamchatkaImage },
+//   { title: 'Холмогорский район', link: kholmogorskyImage },
+//   { title: 'Байкал', link: baikalImage }
+// ];
 
 // шаблон для верстки карточки
 export const cardTemplate = '.card-template';
@@ -28,9 +28,10 @@ export const validationSettings = {
   errorClass: 'popup__error_visible'
 };
 
-// имя пользователя и его профессия
+// данные пользователя
 export const userName = document.querySelector('.user__name');
 export const userAbout = document.querySelector('.user__about');
+export const userAvatar = document.querySelector('.user__avatar');
 
 // кнопки
 export const editProfileBtn = document.querySelector('.user__button-edit');

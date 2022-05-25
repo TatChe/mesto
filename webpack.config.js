@@ -1,14 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: { main: './src/pages/index.js' },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
-    publicPath: ''
+    // чтобы при изменениях в index.js main.js тоже обновлялся
+    filename: 'main.[hash].js',
+    publicPath: '',
+    // в новых версиях webpack можно без плагина Clean
+    clean: true,
   },
   mode: 'development',
   devServer: {
@@ -44,7 +46,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin()
-  ]   
-}
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css'
+    })
+  ],
+  // чтобы при отладке в браузере js-код был более читаемым
+  devtool: 'inline-source-map',
+};

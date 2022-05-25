@@ -17,11 +17,11 @@
         <img class="user__avatar" alt="аватар пользователя" src="<%=require('./images/avatar.jpg')%>">
         <div class="user__description">
           <div class="user__profile">
-            <h1 class="user__name">Жак-Ив Кусто</h1>
+            <h1 class="user__name">Имя пользователя</h1>
             <!-- здесь и далее прописывала для кнопок без текста aria-label для поддержки accessibility, но валидатор ругается -->
             <button type="button" class="button user__button-edit"></button>
           </div>
-          <p class="user__about">Исследователь океана</p>
+          <p class="user__about">Занятие</p>
         </div>
       </div>
       <button type="button" class="button profile__button-add"></button>
@@ -42,8 +42,8 @@
     <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="profile-edit" novalidate>
-        <input class="popup__input popup__input_data_name" type="text" name="userName" placeholder="Ваше имя" required minlength="2" maxlength="40">
-        <span class="popup__error" id="userName-error"></span>
+        <input class="popup__input popup__input_data_name" type="text" name="name" placeholder="Ваше имя" required minlength="2" maxlength="40">
+        <span class="popup__error" id="name-error"></span>
 
         <input class="popup__input popup__input_data_about" type="text" name="about" placeholder="Чем вы занимаетесь" required minlength="2" maxlength="200">
         <span class="popup__error" id="about-error"></span>
@@ -59,8 +59,8 @@
     <div class="popup__container popup__container_type_form">
       <h2 class="popup__title">Новое место</h2>
       <form class="popup__form" name="card-add" novalidate>
-        <input class="popup__input popup__input_data_img-title" type="text" name="name" placeholder="Название" required minlength="2" maxlength="30">
-        <span class="popup__error" id="name-error"></span>
+        <input class="popup__input popup__input_data_img-title" type="text" name="title" placeholder="Название" required minlength="2" maxlength="30">
+        <span class="popup__error" id="title-error"></span>
 
         <input class="popup__input popup__input_data_img-src" type="url" name="link" placeholder="Ссылка на картинку" required>
         <span class="popup__error" id="link-error"></span>
@@ -90,7 +90,10 @@
       <button type="button" class="button element__button-delete"></button>
       <div class="element__title">
         <h2 class="element__name"></h2>
-        <button type="button" class="button element__button-like"></button>
+        <div class="element__likes">
+          <button type="button" class="button element__button-like"></button>
+          <p class="element__likes-counter">N</p>
+        </div>
       </div>
     </li>
   </template>

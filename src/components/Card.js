@@ -1,6 +1,6 @@
 export default class Card {
   constructor ( { data, handleCardClick }, cardTemplate) {
-    this._name = data.name;
+    this._title = data.title;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
 
@@ -34,7 +34,7 @@ export default class Card {
     /* т.к. в файл класса мы не должны ничего импортировать из других файлов,
     для обработки клика по картинке будем использовать мягкое связывание */
     this._img.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
+      this._handleCardClick(this._title, this._link);
     });
   }  
 
@@ -60,8 +60,8 @@ export default class Card {
     this._setEventListeners();
   
     // добавим данные
-    this._element.querySelector('.element__name').textContent = this._name;
-    this._img.alt = this._name;
+    this._element.querySelector('.element__name').textContent = this._title;
+    this._img.alt = this._title;
     this._img.src = this._link;
 
     return this._element;
