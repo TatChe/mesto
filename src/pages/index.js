@@ -1,7 +1,6 @@
 import './index.css';
 
 import {
-  // initialCards,
   cardTemplate,
   editProfileBtn,
   addCardBtn,
@@ -18,6 +17,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -33,15 +33,17 @@ const api = new Api ({
 });
 
 
+api.getStartedData()
+  .then( (data) => {
+    const [ userData, cardsData ] = data;
 
-// данные пользователя
-api.getUserData()
-  .then((data) => {
-    userName.textContent = data.name;
-    userAbout.textContent = data.about;
-    userAvatar.src = data.avatar;
+    /* *** работа с пользователем *** */
+    userName.textContent = userData.name;
+    userAbout.textContent = userData.about;
+    userAvatar.src = userData.avatar;
 
     const userInfo = new UserInfo({userName, userAbout});
+    const currentUserID = userData._id;
 
     // попап
     const userEditPopup = new PopupWithForm('.popup_action_profile-edit', saveProfileChanges);
@@ -72,19 +74,20 @@ api.getUserData()
         .catch((err) => console.log(err));
     }
 
-}).catch((err) => console.log(err));
 
-
-
-
-// карточки
-api.getAllCards()
-  .then((data) => {
+    /* *** работа с карточками *** */
 
     // контейнер для карточек
     const cardsList = new Section(
       {
-        items: data.map((item) => ({title: item.name, link: item.link})),
+        items: cardsData.map((item) => ({
+          title: item.name,
+          link: item.link,
+          likes: item.likes,
+          likesCounter: item.likes.length,
+          id: item._id,
+          owner: item.owner._id
+        })),
         renderer: createCard
       },
       '.elements'
@@ -96,6 +99,7 @@ api.getAllCards()
     // попапы
     const viewCardPopup = new PopupWithImage('.popup_action_card-view');
     const addCardPopup = new PopupWithForm('.popup_action_card-add', addNewCard);
+    const deleteCardPopup = new PopupWithConfirm('.popup_action_card-delete');
 
     // валидатор формы добавления карточки
     const validatorAddCardForm = new FormValidator(addCardPopup.form, validationSettings);
@@ -104,10 +108,23 @@ api.getAllCards()
     // слушатели в попапах
     viewCardPopup.setEventListeners();
     addCardPopup.setEventListeners();
+    deleteCardPopup.setEventListeners();
     
     // создание карточки из класса, добавление в разметку
     function createCard(item) {
-      const card = new Card( {data: item, handleCardClick: viewCardImage}, cardTemplate);
+      const card = new Card( {
+        data: item,
+        handleCardClick: viewCardImage,
+        handleDeleteClick: () => {
+          // устанавливаем обработчик сабмита
+          deleteCardPopup.setSubmitAction (_ => {
+            // прокидываем карточку
+            deleteMyCard(card);
+          })
+          // открываем попап с уже остановленным обработчиком сабмита
+          deleteCardPopup.open();
+        }
+      }, cardTemplate, currentUserID);
       const cardElement = card.generateCard();
       cardsList.addItem(cardElement);
     }
@@ -123,7 +140,14 @@ api.getAllCards()
     function addNewCard(inputsData) {
       api.postCard(inputsData)
         .then((data) => {
-          createCard({title: data.name, link: data.link});
+          createCard({
+            title: data.name,
+            link: data.link,
+            likes: data.likes,
+            likesCounter: data.likes.length,
+            id: data._id,
+            owner: data.owner._id
+          });
           addCardPopup.close();
         })
         .catch((err) => console.log(err));
@@ -134,4 +158,13 @@ api.getAllCards()
       viewCardPopup.open(cardName, cardLink);
     }
 
-}).catch((err) => console.log(err));
+    // удаление карточки
+    function deleteMyCard(card) {
+      api.deleteCard(card)
+        .then((data) => {
+          card.deleteCard();
+        })
+        .catch((err) => console.log(err));
+    }
+
+  }).catch((err) => console.log(err));

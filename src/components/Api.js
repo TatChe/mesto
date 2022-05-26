@@ -23,6 +23,24 @@ export default class Api {
     .then(res => this._errorHandler(res));
   }
 
+  // получить список всех карточек в виде массива
+  getAllCards() {
+    return fetch(this._baseUrl + '/cards', {
+      method: 'GET',
+      headers: this._headers
+    })
+    .then(res => this._errorHandler(res));
+  }
+
+  // получить необходимые стартовые данные (пользователь и карточки)
+  getStartedData() {
+    return Promise.all ([
+      this.getUserData(),
+      this.getAllCards()
+    ]);
+  }
+
+
   // заменить данные пользователя
   patchUserData(userData) {
     return fetch(this._baseUrl + '/users/me', {
@@ -36,16 +54,6 @@ export default class Api {
   // заменить аватар
   patchUserAvatar() {
 
-  }
-
-
-  // получить список всех карточек в виде массива
-  getAllCards() {
-    return fetch(this._baseUrl + '/cards', {
-      method: 'GET',
-      headers: this._headers
-    })
-    .then(res => this._errorHandler(res));
   }
 
   // добавить карточку
@@ -62,18 +70,30 @@ export default class Api {
   }
 
   // удалить карточку
-  deleteCard() {
-
+  deleteCard(card) {
+    return fetch(this._baseUrl + '/cards/' + card.id, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(res => this._errorHandler(res));
   }
 
-  // поставить лайк карточке (PUT)
+  // поставить лайк карточке
   putCardLike() {
-
+    return fetch(this._baseUrl + '/cards/' + card.id, + '/likes', {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(res => this._errorHandler(res));
   }
 
   // удалить лайк карточки
   deleteCardLike() {
-    
+    return fetch(this._baseUrl + '/cards/' + card.id, + '/likes', {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(res => this._errorHandler(res));
   }
 
 }

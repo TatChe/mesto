@@ -1,11 +1,16 @@
 export default class Card {
-  constructor ( { data, handleCardClick }, cardTemplate) {
+  constructor ( { data, handleCardClick, handleDeleteClick }, cardTemplate, currentUserID) {
     this._title = data.title;
     this._link = data.link;
+    this._likes = data.likes;
+    this._likesCounter = data.likesCounter;
     this._cardTemplate = cardTemplate;
+    this.id = data.id;
+    this._ownerID = data.owner;
+    this._currentUserID = currentUserID;
 
-    // функция обработки клика по картинке, описана в index.js
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   // возвращение разметки
@@ -17,6 +22,11 @@ export default class Card {
       .querySelector('.element')
       .cloneNode(true);
     
+    // убираем кнопку удаления для чужих карточек
+    if ( this._ownerID != this._currentUserID ) {
+      cardElement.querySelector('.element__button-delete').remove();
+    }
+
     // возвращаем DOM-элемент карточки
     return cardElement;
   }
@@ -27,12 +37,14 @@ export default class Card {
       this._toggleLike();
     });
 
-    this._element.querySelector('.element__button-delete').addEventListener('click', () => {
-      this._deleteCard();
-    });
+    // проверяем наличие кнопки удаления
+    const deleteButton = this._element.querySelector('.element__button-delete');
+    if (deleteButton) {
+      deleteButton.addEventListener('click', () => {
+        this._handleDeleteClick();
+      });
+    }
 
-    /* т.к. в файл класса мы не должны ничего импортировать из других файлов,
-    для обработки клика по картинке будем использовать мягкое связывание */
     this._img.addEventListener('click', () => {
       this._handleCardClick(this._title, this._link);
     });
@@ -44,7 +56,7 @@ export default class Card {
   }
 
   // удаление карточки
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
     this._element = '';
   }
@@ -61,6 +73,7 @@ export default class Card {
   
     // добавим данные
     this._element.querySelector('.element__name').textContent = this._title;
+    this._element.querySelector('.element__likes-counter').textContent = this._likesCounter;
     this._img.alt = this._title;
     this._img.src = this._link;
 

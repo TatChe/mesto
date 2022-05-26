@@ -37,6 +37,23 @@
   </div>
 
 
+
+  <!-- шаблон верстки для карточки -->
+  <template class="card-template">
+    <li class="element">
+      <img class="element__img">
+      <button type="button" class="button element__button-delete"></button>
+      <div class="element__title">
+        <h2 class="element__name"></h2>
+        <div class="element__likes">
+          <button type="button" class="button element__button-like"></button>
+          <p class="element__likes-counter">N</p>
+        </div>
+      </div>
+    </li>
+  </template>
+
+
   <!-- поп-ап для редактирования профиля -->
   <div class="popup popup_action_profile-edit">
     <div class="popup__container popup__container_type_form">
@@ -48,7 +65,7 @@
         <input class="popup__input popup__input_data_about" type="text" name="about" placeholder="Чем вы занимаетесь" required minlength="2" maxlength="200">
         <span class="popup__error" id="about-error"></span>
 
-        <button class="button popup__button-submit" type="submit">Сохранить</button>
+        <button type="submit" class="button popup__button-submit">Сохранить</button>
       </form>
       <button type="button" class="button popup__button-close"></button>
     </div>
@@ -65,7 +82,7 @@
         <input class="popup__input popup__input_data_img-src" type="url" name="link" placeholder="Ссылка на картинку" required>
         <span class="popup__error" id="link-error"></span>
 
-        <button class="button popup__button-submit" type="submit">Создать</button>
+        <button type="submit" class="button popup__button-submit">Создать</button>
       </form>
       <button type="button" class="button popup__button-close"></button>
     </div>
@@ -82,21 +99,17 @@
     </div>
   </div>
 
-
-  <!-- шаблон верстки для карточки -->
-  <template class="card-template">
-    <li class="element">
-      <img class="element__img">
-      <button type="button" class="button element__button-delete"></button>
-      <div class="element__title">
-        <h2 class="element__name"></h2>
-        <div class="element__likes">
-          <button type="button" class="button element__button-like"></button>
-          <p class="element__likes-counter">N</p>
-        </div>
-      </div>
-    </li>
-  </template>
+  <!-- поп-ап для удаления карточки -->
+  <div class="popup popup_action_card-delete">
+    <div class="popup__container popup__container_type_form">
+      <h2 class="popup__title popup__title_low-margin">Вы уверены?</h2>
+      <form class="popup__form" name="card-delete" novalidate>
+        <button type="submit" class="button popup__button-submit">Да</button>
+      </form>
+      <button type="button" class="button popup__button-close"></button>
+    </div>
+  </div>
+  
 
 </body>
 </html>

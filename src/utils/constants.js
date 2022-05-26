@@ -5,16 +5,6 @@ const kamchatkaImage = new URL('../images/element-kamchatka.jpg', import.meta.ur
 const kholmogorskyImage = new URL('../images/element-kholmogorsky-rayon.jpg', import.meta.url);
 const baikalImage = new URL('../images/element-baikal.jpg', import.meta.url);
 
-// массив с изначальными карточками
-// export const initialCards = [
-//   { title: 'Архыз', link: arkhyzImage },
-//   { title: 'Челябинская область', link: chelyabinskImage },
-//   { title: 'Иваново', link: ivanovoImage },
-//   { title: 'Камчатка', link: kamchatkaImage },
-//   { title: 'Холмогорский район', link: kholmogorskyImage },
-//   { title: 'Байкал', link: baikalImage }
-// ];
-
 // шаблон для верстки карточки
 export const cardTemplate = '.card-template';
 
