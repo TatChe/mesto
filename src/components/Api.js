@@ -52,8 +52,13 @@ export default class Api {
   }
 
   // заменить аватар
-  patchUserAvatar() {
-
+  patchUserAvatar(avatar) {
+    return fetch(this._baseUrl + '/users/me/avatar', {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify(avatar)
+    })
+    .then(res => this._errorHandler(res));
   }
 
   // добавить карточку
@@ -79,8 +84,8 @@ export default class Api {
   }
 
   // поставить лайк карточке
-  putCardLike() {
-    return fetch(this._baseUrl + '/cards/' + card.id, + '/likes', {
+  putCardLike(card) {
+    return fetch(this._baseUrl + '/cards/' + card.id + '/likes', {
       method: 'PUT',
       headers: this._headers
     })
@@ -88,8 +93,8 @@ export default class Api {
   }
 
   // удалить лайк карточки
-  deleteCardLike() {
-    return fetch(this._baseUrl + '/cards/' + card.id, + '/likes', {
+  deleteCardLike(card) {
+    return fetch(this._baseUrl + '/cards/' + card.id + '/likes', {
       method: 'DELETE',
       headers: this._headers
     })

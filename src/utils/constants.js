@@ -26,6 +26,7 @@ export const userAvatar = document.querySelector('.user__avatar');
 // кнопки
 export const editProfileBtn = document.querySelector('.user__button-edit');
 export const addCardBtn = document.querySelector('.profile__button-add');
+export const avatarEditBtn = document.querySelector('.user__avatar-edit');
 
 // поля для профиля
 export const inputUserName = document.querySelector('.popup__input_data_name');

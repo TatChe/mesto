@@ -4,6 +4,7 @@ import {
   cardTemplate,
   editProfileBtn,
   addCardBtn,
+  avatarEditBtn,
   validationSettings,
   inputUserName,
   inputUserAbout,
@@ -12,6 +13,7 @@ import {
   userAvatar,
 } from '../utils/constants.js';
 
+import { renderLoading } from '../utils/utils.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -45,15 +47,19 @@ api.getStartedData()
     const userInfo = new UserInfo({userName, userAbout});
     const currentUserID = userData._id;
 
-    // попап
+    // попапы
     const userEditPopup = new PopupWithForm('.popup_action_profile-edit', saveProfileChanges);
+    const avatarEditPopup = new PopupWithForm('.popup_action_avatar-edit', saveAvatarChanges);
 
-    // валидатор формы
+    // валидатор форм
     const validatorEditProfileForm = new FormValidator(userEditPopup.form, validationSettings);
+    const validatorEditAvatarForm = new FormValidator(avatarEditPopup.form, validationSettings);
     validatorEditProfileForm.enableValidation();
+    validatorEditAvatarForm.enableValidation();
 
-    // слушатель в попапе
+    // слушатели в попапах
     userEditPopup.setEventListeners();
+    avatarEditPopup.setEventListeners();
 
     // слушатели кликов по кнопкам открытия попапов
     editProfileBtn.addEventListener ('click', () => {
@@ -62,14 +68,35 @@ api.getStartedData()
       validatorEditProfileForm.deactivateButton(); // состояние кнопки при открытии формы
       validatorEditProfileForm.hideAllErrors(); // очищаем ошибки
       userEditPopup.open();
-    });
+    })
+
+    avatarEditBtn.addEventListener ('click', () => {
+      validatorEditAvatarForm.deactivateButton();
+      validatorEditAvatarForm.hideAllErrors();
+      avatarEditPopup.open();
+    })
+
 
     // обработчик сабмита формы с данными пользователя
     function saveProfileChanges(inputsData) {
+      renderLoading ('.popup_action_profile-edit', true);
       api.patchUserData(inputsData)
         .then((data) => {
+          renderLoading ('.popup_action_profile-edit', false);
           userInfo.setUserInfo(data);
           userEditPopup.close();
+        })
+        .catch((err) => console.log(err));
+    }
+
+    // обработчик сабмита формы с аватаром
+    function saveAvatarChanges(avatar) {
+      renderLoading ('.popup_action_avatar-edit', true);
+      api.patchUserAvatar(avatar)
+        .then((data) => {
+          renderLoading ('.popup_action_avatar-edit', true);
+          userAvatar.src = data.avatar;
+          avatarEditPopup.close();
         })
         .catch((err) => console.log(err));
     }
@@ -84,14 +111,13 @@ api.getStartedData()
           title: item.name,
           link: item.link,
           likes: item.likes,
-          likesCounter: item.likes.length,
           id: item._id,
           owner: item.owner._id
         })),
         renderer: createCard
       },
       '.elements'
-    );
+    )
 
     // рендер исходных карточек
     cardsList.renderAllItems();
@@ -123,7 +149,8 @@ api.getStartedData()
           })
           // открываем попап с уже остановленным обработчиком сабмита
           deleteCardPopup.open();
-        }
+        },
+        handleLikeClick: likeSwitcher
       }, cardTemplate, currentUserID);
       const cardElement = card.generateCard();
       cardsList.addItem(cardElement);
@@ -134,17 +161,18 @@ api.getStartedData()
       validatorAddCardForm.deactivateButton(); // состояние кнопки при открытии формы
       validatorAddCardForm.hideAllErrors(); // очищаем ошибки
       addCardPopup.open();
-    });
+    })
 
     // добавление карточки из попапа
     function addNewCard(inputsData) {
+      renderLoading ('.popup_action_card-add', true);
       api.postCard(inputsData)
         .then((data) => {
+          renderLoading ('.popup_action_card-add', true);
           createCard({
             title: data.name,
             link: data.link,
             likes: data.likes,
-            likesCounter: data.likes.length,
             id: data._id,
             owner: data.owner._id
           });
@@ -165,6 +193,26 @@ api.getStartedData()
           card.deleteCard();
         })
         .catch((err) => console.log(err));
+    }
+
+    // лайк карточки
+    function likeSwitcher(card) {
+      // проверяем, есть ли у карточки наш лайк
+      if ( card.likes.some((like) => like._id == currentUserID ) ) {
+        // снимаем лайк
+        api.deleteCardLike(card)
+        .then((data) => {
+          card.setLikes(data);
+        })
+        .catch((err) => console.log(err));
+      } else {
+        // устанавливаем лайк
+        api.putCardLike(card)
+        .then((data) => {
+          card.setLikes(data);
+        })
+        .catch((err) => console.log(err));
+      }
     }
 
   }).catch((err) => console.log(err));
