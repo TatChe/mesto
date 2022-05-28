@@ -48,18 +48,22 @@ export default class Card {
   // удаление карточки
   deleteCard() {
     this._element.remove();
-    this._element = '';
+    this._element = null;
   }
 
 
   // лайки карточки
+  isLiked() {
+    return Boolean(this.likes.find(like => like._id === this._currentUserID));
+  }
+
   setLikes(data) {
     const likeIcon = this._element.querySelector('.element__button-like');
     const likesCounterPlace = this._element.querySelector('.element__likes-counter');
     this.likes = data.likes;
     likesCounterPlace.textContent = this.likes.length;
 
-    if ( this.likes.some((like) => like._id == this._currentUserID ) ) {
+    if ( this.isLiked() ) {
       likeIcon.classList.add('element__button-like_active');
     } else {
       likeIcon.classList.remove('element__button-like_active');

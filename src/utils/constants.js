@@ -1,9 +1,5 @@
-const arkhyzImage = new URL('../images/element-arkhyz.jpg', import.meta.url);
-const chelyabinskImage = new URL('../images/element-chelyabinsk-oblast.jpg', import.meta.url);
-const ivanovoImage = new URL('../images/element-ivanovo.jpg', import.meta.url);
-const kamchatkaImage = new URL('../images/element-kamchatka.jpg', import.meta.url);
-const kholmogorskyImage = new URL('../images/element-kholmogorsky-rayon.jpg', import.meta.url);
-const baikalImage = new URL('../images/element-baikal.jpg', import.meta.url);
+// токен для авторизации
+export const token = '1d4d3067-933d-44bd-90ee-5ffcfa07139c';
 
 // шаблон для верстки карточки
 export const cardTemplate = '.card-template';
